@@ -1,0 +1,350 @@
+{'encoder': LiteMono(
+  (downsample_layers): ModuleList(
+    (0): Sequential(
+      (0): Conv(
+        (conv): Conv2d(3, 48, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+        (bn_gelu): BNGELU(
+          (bn): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (act): GELU()
+        )
+      )
+      (1): Conv(
+        (conv): Conv2d(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn_gelu): BNGELU(
+          (bn): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (act): GELU()
+        )
+      )
+      (2): Conv(
+        (conv): Conv2d(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn_gelu): BNGELU(
+          (bn): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (act): GELU()
+        )
+      )
+    )
+    (1): Sequential(
+      (0): Conv(
+        (conv): Conv2d(99, 80, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      )
+    )
+    (2): Sequential(
+      (0): Conv(
+        (conv): Conv2d(163, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      )
+    )
+  )
+  (stem2): Sequential(
+    (0): Conv(
+      (conv): Conv2d(51, 48, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+    )
+  )
+  (input_downsample): ModuleList(
+    (0): AvgPool(
+      (pool): ModuleList(
+        (0): AvgPool2d(kernel_size=3, stride=2, padding=1)
+      )
+    )
+    (1): AvgPool(
+      (pool): ModuleList(
+        (0): AvgPool2d(kernel_size=3, stride=2, padding=1)
+        (1): AvgPool2d(kernel_size=3, stride=2, padding=1)
+      )
+    )
+    (2): AvgPool(
+      (pool): ModuleList(
+        (0): AvgPool2d(kernel_size=3, stride=2, padding=1)
+        (1): AvgPool2d(kernel_size=3, stride=2, padding=1)
+        (2): AvgPool2d(kernel_size=3, stride=2, padding=1)
+      )
+    )
+    (3): AvgPool(
+      (pool): ModuleList(
+        (0): AvgPool2d(kernel_size=3, stride=2, padding=1)
+        (1): AvgPool2d(kernel_size=3, stride=2, padding=1)
+        (2): AvgPool2d(kernel_size=3, stride=2, padding=1)
+        (3): AvgPool2d(kernel_size=3, stride=2, padding=1)
+      )
+    )
+  )
+  (stages): ModuleList(
+    (0): Sequential(
+      (0): DilatedConv(
+        (ddwconv): CDilated(
+          (conv): Conv2d(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=48, bias=False)
+        )
+        (bn1): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (norm): LayerNorm()
+        (pwconv1): Linear(in_features=48, out_features=288, bias=True)
+        (act): GELU()
+        (pwconv2): Linear(in_features=288, out_features=48, bias=True)
+        (drop_path): Identity()
+      )
+      (1): DilatedConv(
+        (ddwconv): CDilated(
+          (conv): Conv2d(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2), groups=48, bias=False)
+        )
+        (bn1): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (norm): LayerNorm()
+        (pwconv1): Linear(in_features=48, out_features=288, bias=True)
+        (act): GELU()
+        (pwconv2): Linear(in_features=288, out_features=48, bias=True)
+        (drop_path): DropPath(drop_prob=0.012)
+      )
+      (2): DilatedConv(
+        (ddwconv): CDilated(
+          (conv): Conv2d(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3), dilation=(3, 3), groups=48, bias=False)
+        )
+        (bn1): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (norm): LayerNorm()
+        (pwconv1): Linear(in_features=48, out_features=288, bias=True)
+        (act): GELU()
+        (pwconv2): Linear(in_features=288, out_features=48, bias=True)
+        (drop_path): DropPath(drop_prob=0.024)
+      )
+      (3): LGFI(
+        (pos_embd): PositionalEncodingFourier(
+          (token_projection): Conv2d(64, 48, kernel_size=(1, 1), stride=(1, 1))
+        )
+        (norm_xca): LayerNorm()
+        (xca): XCA(
+          (qkv): Linear(in_features=48, out_features=144, bias=True)
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=48, out_features=48, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+        )
+        (norm): LayerNorm()
+        (pwconv1): Linear(in_features=48, out_features=288, bias=True)
+        (act): GELU()
+        (pwconv2): Linear(in_features=288, out_features=48, bias=True)
+        (drop_path): DropPath(drop_prob=0.035)
+      )
+    )
+    (1): Sequential(
+      (0): DilatedConv(
+        (ddwconv): CDilated(
+          (conv): Conv2d(80, 80, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=80, bias=False)
+        )
+        (bn1): BatchNorm2d(80, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (norm): LayerNorm()
+        (pwconv1): Linear(in_features=80, out_features=480, bias=True)
+        (act): GELU()
+        (pwconv2): Linear(in_features=480, out_features=80, bias=True)
+        (drop_path): DropPath(drop_prob=0.047)
+      )
+      (1): DilatedConv(
+        (ddwconv): CDilated(
+          (conv): Conv2d(80, 80, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2), groups=80, bias=False)
+        )
+        (bn1): BatchNorm2d(80, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (norm): LayerNorm()
+        (pwconv1): Linear(in_features=80, out_features=480, bias=True)
+        (act): GELU()
+        (pwconv2): Linear(in_features=480, out_features=80, bias=True)
+        (drop_path): DropPath(drop_prob=0.059)
+      )
+      (2): DilatedConv(
+        (ddwconv): CDilated(
+          (conv): Conv2d(80, 80, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3), dilation=(3, 3), groups=80, bias=False)
+        )
+        (bn1): BatchNorm2d(80, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (norm): LayerNorm()
+        (pwconv1): Linear(in_features=80, out_features=480, bias=True)
+        (act): GELU()
+        (pwconv2): Linear(in_features=480, out_features=80, bias=True)
+        (drop_path): DropPath(drop_prob=0.071)
+      )
+      (3): LGFI(
+        (norm_xca): LayerNorm()
+        (xca): XCA(
+          (qkv): Linear(in_features=80, out_features=240, bias=True)
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=80, out_features=80, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+        )
+        (norm): LayerNorm()
+        (pwconv1): Linear(in_features=80, out_features=480, bias=True)
+        (act): GELU()
+        (pwconv2): Linear(in_features=480, out_features=80, bias=True)
+        (drop_path): DropPath(drop_prob=0.082)
+      )
+    )
+    (2): Sequential(
+      (0): DilatedConv(
+        (ddwconv): CDilated(
+          (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+        )
+        (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (norm): LayerNorm()
+        (pwconv1): Linear(in_features=128, out_features=768, bias=True)
+        (act): GELU()
+        (pwconv2): Linear(in_features=768, out_features=128, bias=True)
+        (drop_path): DropPath(drop_prob=0.094)
+      )
+      (1): DilatedConv(
+        (ddwconv): CDilated(
+          (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2), groups=128, bias=False)
+        )
+        (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (norm): LayerNorm()
+        (pwconv1): Linear(in_features=128, out_features=768, bias=True)
+        (act): GELU()
+        (pwconv2): Linear(in_features=768, out_features=128, bias=True)
+        (drop_path): DropPath(drop_prob=0.106)
+      )
+      (2): DilatedConv(
+        (ddwconv): CDilated(
+          (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3), dilation=(3, 3), groups=128, bias=False)
+        )
+        (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (norm): LayerNorm()
+        (pwconv1): Linear(in_features=128, out_features=768, bias=True)
+        (act): GELU()
+        (pwconv2): Linear(in_features=768, out_features=128, bias=True)
+        (drop_path): DropPath(drop_prob=0.118)
+      )
+      (3): DilatedConv(
+        (ddwconv): CDilated(
+          (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+        )
+        (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (norm): LayerNorm()
+        (pwconv1): Linear(in_features=128, out_features=768, bias=True)
+        (act): GELU()
+        (pwconv2): Linear(in_features=768, out_features=128, bias=True)
+        (drop_path): DropPath(drop_prob=0.129)
+      )
+      (4): DilatedConv(
+        (ddwconv): CDilated(
+          (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2), groups=128, bias=False)
+        )
+        (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (norm): LayerNorm()
+        (pwconv1): Linear(in_features=128, out_features=768, bias=True)
+        (act): GELU()
+        (pwconv2): Linear(in_features=768, out_features=128, bias=True)
+        (drop_path): DropPath(drop_prob=0.141)
+      )
+      (5): DilatedConv(
+        (ddwconv): CDilated(
+          (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3), dilation=(3, 3), groups=128, bias=False)
+        )
+        (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (norm): LayerNorm()
+        (pwconv1): Linear(in_features=128, out_features=768, bias=True)
+        (act): GELU()
+        (pwconv2): Linear(in_features=768, out_features=128, bias=True)
+        (drop_path): DropPath(drop_prob=0.153)
+      )
+      (6): DilatedConv(
+        (ddwconv): CDilated(
+          (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2), groups=128, bias=False)
+        )
+        (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (norm): LayerNorm()
+        (pwconv1): Linear(in_features=128, out_features=768, bias=True)
+        (act): GELU()
+        (pwconv2): Linear(in_features=768, out_features=128, bias=True)
+        (drop_path): DropPath(drop_prob=0.165)
+      )
+      (7): DilatedConv(
+        (ddwconv): CDilated(
+          (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(4, 4), dilation=(4, 4), groups=128, bias=False)
+        )
+        (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (norm): LayerNorm()
+        (pwconv1): Linear(in_features=128, out_features=768, bias=True)
+        (act): GELU()
+        (pwconv2): Linear(in_features=768, out_features=128, bias=True)
+        (drop_path): DropPath(drop_prob=0.176)
+      )
+      (8): DilatedConv(
+        (ddwconv): CDilated(
+          (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(6, 6), dilation=(6, 6), groups=128, bias=False)
+        )
+        (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (norm): LayerNorm()
+        (pwconv1): Linear(in_features=128, out_features=768, bias=True)
+        (act): GELU()
+        (pwconv2): Linear(in_features=768, out_features=128, bias=True)
+        (drop_path): DropPath(drop_prob=0.188)
+      )
+      (9): LGFI(
+        (norm_xca): LayerNorm()
+        (xca): XCA(
+          (qkv): Linear(in_features=128, out_features=384, bias=True)
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=128, out_features=128, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+        )
+        (norm): LayerNorm()
+        (pwconv1): Linear(in_features=128, out_features=768, bias=True)
+        (act): GELU()
+        (pwconv2): Linear(in_features=768, out_features=128, bias=True)
+        (drop_path): DropPath(drop_prob=0.200)
+      )
+    )
+  )
+),
+
+
+
+'depth': DepthDecoder(
+  (decoder): ModuleList(
+    (0): ConvBlock(
+      (conv): Conv3x3(
+        (pad): ReflectionPad2d((1, 1, 1, 1))
+        (conv): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1))
+      )
+      (nonlin): ELU(alpha=1.0, inplace=True)
+    )
+    (1): ConvBlock(
+      (conv): Conv3x3(
+        (pad): ReflectionPad2d((1, 1, 1, 1))
+        (conv): Conv2d(144, 64, kernel_size=(3, 3), stride=(1, 1))
+      )
+      (nonlin): ELU(alpha=1.0, inplace=True)
+    )
+    (2): ConvBlock(
+      (conv): Conv3x3(
+        (pad): ReflectionPad2d((1, 1, 1, 1))
+        (conv): Conv2d(64, 40, kernel_size=(3, 3), stride=(1, 1))
+      )
+      (nonlin): ELU(alpha=1.0, inplace=True)
+    )
+    (3): ConvBlock(
+      (conv): Conv3x3(
+        (pad): ReflectionPad2d((1, 1, 1, 1))
+        (conv): Conv2d(88, 40, kernel_size=(3, 3), stride=(1, 1))
+      )
+      (nonlin): ELU(alpha=1.0, inplace=True)
+    )
+    (4): ConvBlock(
+      (conv): Conv3x3(
+        (pad): ReflectionPad2d((1, 1, 1, 1))
+        (conv): Conv2d(40, 24, kernel_size=(3, 3), stride=(1, 1))
+      )
+      (nonlin): ELU(alpha=1.0, inplace=True)
+    )
+    (5): ConvBlock(
+      (conv): Conv3x3(
+        (pad): ReflectionPad2d((1, 1, 1, 1))
+        (conv): Conv2d(24, 24, kernel_size=(3, 3), stride=(1, 1))
+      )
+      (nonlin): ELU(alpha=1.0, inplace=True)
+    )
+    (6): Conv3x3(
+      (pad): ReflectionPad2d((1, 1, 1, 1))
+      (conv): Conv2d(24, 1, kernel_size=(3, 3), stride=(1, 1))
+    )
+    (7): Conv3x3(
+      (pad): ReflectionPad2d((1, 1, 1, 1))
+      (conv): Conv2d(40, 1, kernel_size=(3, 3), stride=(1, 1))
+    )
+    (8): Conv3x3(
+      (pad): ReflectionPad2d((1, 1, 1, 1))
+      (conv): Conv2d(64, 1, kernel_size=(3, 3), stride=(1, 1))
+    )
+  )
+  (sigmoid): Sigmoid()
+)}
